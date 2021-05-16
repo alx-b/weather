@@ -1,0 +1,12 @@
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+nav > a {
+    color: #ddd;
+}
+
+nav > a:hover {
+    text-decoration: underline;
+}

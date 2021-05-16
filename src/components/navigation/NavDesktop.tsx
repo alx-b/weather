@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import RoutingPath from "../../routes/RoutingPath"
+import "./nav_desktop.css"
 
 const NavDesktop = () => {
     return (
-        <div>
+        <nav>
             <Link to={RoutingPath.home}>Home</Link>
             <Link to={RoutingPath.about}>About</Link>
-        </div>
+        </nav>
     )
 }
 
