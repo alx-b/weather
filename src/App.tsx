@@ -4,9 +4,11 @@ import { Routing } from "./routes/Routing"
 const App = () => {
   return (
     <div className="App">
-      <h1>HELLO</h1>
       <Routing>
-        <NavDesktop />
+        <div className="header-and-nav">
+          <header><h1>Weather</h1></header>
+          <NavDesktop />
+        </div>
       </Routing>
     </div>
   )

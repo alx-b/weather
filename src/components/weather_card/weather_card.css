@@ -1,0 +1,11 @@
+.weather-card {
+    display: grid;
+    background-color: #668;
+    border: 2px solid #ddd;
+    text-align: center;
+}
+
+.expected-temperature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
