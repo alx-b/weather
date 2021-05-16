@@ -1,10 +1,13 @@
 import NavDesktop from "./components/navigation/NavDesktop"
+import { Routing } from "./routes/Routing"
 
 const App = () => {
   return (
     <div className="App">
       <h1>HELLO</h1>
-      <NavDesktop />
+      <Routing>
+        <NavDesktop />
+      </Routing>
     </div>
   )
 }
