@@ -1,32 +1,72 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import OpenWeather from "../../api/OpenWeather"
 import "./weather_card.css"
+import { update } from "../../redux/location"
 
 
 type WeatherInfo = {
-    location: string,
     currentTemperature: string,
-    lowestExpectedTemperature: string,
-    highestExpectedTemperature: string,
+    temperatureFeelsLike: string,
+    mainWeather: string,
+    descriptionWeather: string
 }
 
 const WeatherCard = () => {
-    const weather = {
-        location: "somewhere",
-        currentTemperature: "20",
-        lowestExpectedTemperature: "15",
-        highestExpectedTemperature: "25"
+    const location = String(useSelector<any>(state => state.location.value))
+    const dispatch = useDispatch()
+    const [inputValue, setInputValue] = useState<string>("")
+
+
+    const [weatherData, setWeatherData] = useState<WeatherInfo>({
+        currentTemperature: "",
+        temperatureFeelsLike: "",
+        mainWeather: "",
+        descriptionWeather: ""
+    })
+
+
+    const ifCityExistsUpdateLocation = async () => {
+        if (await OpenWeather.getCurrentWeatherInCity(inputValue)) {
+            dispatch(update(inputValue))
+        }
     }
 
-    const [weatherData, setWeatherData] = useState<WeatherInfo>(weather)
-    
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await OpenWeather.getCurrentWeatherInCity(location)
+                .then(response => {
+                    setWeatherData({
+                        currentTemperature: response.data.main.temp,
+                        temperatureFeelsLike: response.data.main.feels_like,
+                        mainWeather: response.data.weather[0].main,
+                        descriptionWeather: response.data.weather[0].description
+                    })
+                    //dispatch(update(response.data.name))
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log("ERROR: " + error)
+                })
+        }
+        
+        fetchData()
+    }, [location])
+
+
+//<input onBlur={(e) => dispatch(update(e.target.value))} type="text" placeholder="Change location..." />
     return (
         <div className="weather-card">
-            <h1>{weatherData.currentTemperature}°C</h1>
-            <div className="expected-temperature">
-                <h3>{weatherData.lowestExpectedTemperature}°C</h3>
-                <h3>{weatherData.highestExpectedTemperature}°C</h3>
-            </div>
-            <h3>{weatherData.location}</h3>
+            <h1>Currently {weatherData?.currentTemperature}°C</h1>
+            <h3>Feels like {weatherData?.temperatureFeelsLike}°C</h3>
+            <h3>Weather {weatherData?.mainWeather}</h3>
+            <h3>Description {weatherData?.descriptionWeather}</h3>
+            <h3>{location}</h3>
+            <form>
+            <input onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="Change location..." />
+            <button type="reset" onClick={() => ifCityExistsUpdateLocation()}>Submit</button>
+            </form>
         </div>
     )
 }
