@@ -1,7 +1,10 @@
 .weather-card {
     display: grid;
-    background-color: #668;
+    /*background-color: #668;
+    background-color: #1a618e;
+    background-image: linear-gradient(0deg, #1a618e 50%, #2b729f 100%);
     border: 2px solid #ddd;
+    border-radius: 6px;*/
     text-align: center;
 }
 
