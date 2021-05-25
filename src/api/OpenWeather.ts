@@ -32,7 +32,7 @@ const getWeatherByLatitudeAndLongitude = (lat: string, lon: string) => {
             lon: lon,
             appid: process.env.REACT_APP_API_KEY,
             units: "metric",
-            excluse: "minutely,alerts"
+            exclude: "minutely,alerts"
         }
     })
 }
