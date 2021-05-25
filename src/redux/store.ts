@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import locationReducer from "./location"
+import searchedLocationReducer from "./searchedLocation"
+import weatherInfoReducer from "./weatherInfo"
 
 export default configureStore({
     reducer: {
-        location: locationReducer
+        searchedLocation: searchedLocationReducer,
+        weatherInfo: weatherInfoReducer
     },
-    
 })
