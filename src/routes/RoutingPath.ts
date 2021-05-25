@@ -1,7 +1,12 @@
 const home: string = "/"
+const hours: string = "/hours"
 const about: string = "/about"
 
-export default {
+const routes = {
     home,
+    hours,
     about
 }
+
+export default routes
+
