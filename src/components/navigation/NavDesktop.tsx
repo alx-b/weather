@@ -5,7 +5,8 @@ import "./nav_desktop.css"
 const NavDesktop = () => {
     return (
         <nav>
-            <Link to={RoutingPath.home}>Home</Link>
+            <Link to={RoutingPath.home}>Today</Link>
+            <Link to={RoutingPath.hours}>By 3 hours</Link>
             <Link to={RoutingPath.about}>About</Link>
         </nav>
     )
