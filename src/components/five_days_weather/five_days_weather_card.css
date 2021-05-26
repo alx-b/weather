@@ -1,0 +1,15 @@
+.somethin {
+    display: grid;
+    grid-gap: 6px;
+}
+
+.lilsomethin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #446;
+    text-align: center;
+}
+
+
+
+
