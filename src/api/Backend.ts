@@ -16,10 +16,15 @@ const addCity = (cityData: any) => {
     return BackendWeather.post("/city", cityData)
 }
 
+const getOpenWeatherAPIKey = () => {
+    return BackendWeather.get("/api")
+}
+
 const backendWeather = {
     getCities,
     getCityByName,
-    addCity
+    addCity,
+    getOpenWeatherAPIKey
 }
 
 export default backendWeather

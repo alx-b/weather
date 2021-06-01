@@ -1,36 +1,42 @@
 import Axios from "axios"
+import BackendWeather from "./Backend"
 
 const OpenWeather = Axios.create({
     baseURL: "http://api.openweathermap.org",
     headers: {"Content-Type": "application/json"}
 })
 
-const getCurrentWeatherInCity = (city: string) => {
-    return OpenWeather.get("/data/2.5/weather?", {
+const getAPIKey = async () => {
+    const response = await BackendWeather.getOpenWeatherAPIKey()
+    return response.data.apikey
+}
+
+const getCurrentWeatherInCity = async (city: string) => {
+    return await OpenWeather.get("/data/2.5/weather?", {
         params: {
             q: city,
-            appid: process.env.REACT_APP_API_KEY,
+            appid: await getAPIKey(),
             units: "metric"
         }
     })
 }
 
-const getFiveDaysWeatherInCity = (city: string) => {
-    return OpenWeather.get("/data/2.5/forecast?", {
+const getFiveDaysWeatherInCity = async (city: string) => {
+    return await OpenWeather.get("/data/2.5/forecast?", {
         params: {
             q: city,
-            appid: process.env.REACT_APP_API_KEY,
+            appid: await getAPIKey(),
             units: "metric"
         }
     })
 }
 
-const getWeatherByLatitudeAndLongitude = (lat: string, lon: string) => {
-    return OpenWeather.get("/data/2.5/onecall?", {
+const getWeatherByLatitudeAndLongitude = async (lat: string, lon: string) => {
+    return await OpenWeather.get("/data/2.5/onecall?", {
         params: {
             lat: lat,
             lon: lon,
-            appid: process.env.REACT_APP_API_KEY,
+            appid: await getAPIKey(),
             units: "metric",
             exclude: "minutely,alerts"
         }
