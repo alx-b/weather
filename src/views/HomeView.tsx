@@ -7,8 +7,8 @@ export const HomeView = () => {
         <div>
             <h1>Today</h1>
             <div className="weather-cards">
-                <WeatherCard />
                 <SearchedLocationInput />
+                <WeatherCard />
                 <DayCard />
             </div>
         </div>

@@ -1,0 +1,33 @@
+button {
+    text-decoration: 0;
+    border: 0;
+    background-color: #1a618e;
+    color: #ddd;
+    padding: 10px;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+    /*border-bottom: 4px solid #09507d;*/
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #2b729f;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    border-bottom: 0;
+}
+
+.form-searched-location {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+}
+
+.buttons-input {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    gap: 10px;
+}

@@ -30,3 +30,8 @@ code {
   align-items: center;
   gap: 20px;
 }
+
+.weather-cards {
+display: grid;
+grid-gap: 10px;
+}

@@ -5,6 +5,7 @@ import BackendWeather from "../../api/Backend"
 import { updateName, updateLatitude, updateLongitude } from "../../redux/searchedLocation"
 import { updateCity, updateTemperature, updateTempFeelsLike, updateTempMin, updateTempMax } from "../../redux/weatherInfo"
 import { updateAll } from "../../redux/dayWeather"
+import "./searched_location_input.css"
 
 type CityInfo = {
     name: string
@@ -84,7 +85,7 @@ const SearchedLocationInput = () => {
 
     const displayData = () => {
         return (
-            <div>
+            <div className="buttons-input">
                 <form className="form-searched-location">
                     <input onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="Search location..." />
                     <button type="reset" onClick={() => ifCityExistsUpdateLocationAndGetData()}>Get from API</button>
