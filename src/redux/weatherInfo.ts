@@ -5,7 +5,9 @@ export const weatherInfoSlice = createSlice({
     initialState: {
         city: "",
         temperature: "",
-        tempFeelsLike: ""
+        tempFeelsLike: "",
+        tempMin: "",
+        tempMax: ""
     },
     reducers: {
         updateCity: (state, action) => {
@@ -16,10 +18,16 @@ export const weatherInfoSlice = createSlice({
         },
         updateTempFeelsLike: (state, action) => {
             state.tempFeelsLike = action.payload
+        },
+        updateTempMin: (state, action) => {
+            state.tempMin = action.payload
+        },
+        updateTempMax: (state, action) => {
+            state.tempMax = action.payload
         }
     }
 })
 
-export const { updateCity, updateTemperature, updateTempFeelsLike } = weatherInfoSlice.actions
+export const { updateCity, updateTemperature, updateTempFeelsLike, updateTempMin, updateTempMax } = weatherInfoSlice.actions
 
 export default weatherInfoSlice.reducer
