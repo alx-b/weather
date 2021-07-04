@@ -1,4 +1,5 @@
 import WeatherCard from "../components/weather_card/WeatherCard"
+import DayCard from "../components/day_card/DayCard"
 import SearchedLocationInput from "../components/searched_location_input/searchedLocationInput"
 
 export const HomeView = () => {
@@ -8,6 +9,7 @@ export const HomeView = () => {
             <div className="weather-cards">
                 <WeatherCard />
                 <SearchedLocationInput />
+                <DayCard />
             </div>
         </div>
     )
