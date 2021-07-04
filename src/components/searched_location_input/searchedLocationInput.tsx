@@ -3,7 +3,8 @@ import { useState } from "react"
 import OpenWeather from "../../api/OpenWeather"
 import BackendWeather from "../../api/Backend"
 import { updateName, updateLatitude, updateLongitude } from "../../redux/searchedLocation"
-import { updateCity, updateTemperature, updateTempFeelsLike } from "../../redux/weatherInfo"
+import { updateCity, updateTemperature, updateTempFeelsLike, updateTempMin, updateTempMax } from "../../redux/weatherInfo"
+import { updateAll } from "../../redux/dayWeather"
 
 type CityInfo = {
     name: string
@@ -12,11 +13,6 @@ type CityInfo = {
     latitude: string
     longitude: string
 }
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// MAKE A SECOND INPUT THAT LOOK ONLY IN DATABASE
-// AND THE FIRST INPUT ONLY TO DO OPENWEATHER CALL
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const SearchedLocationInput = () => {
     const [inputValue, setInputValue] = useState<string>("")
@@ -31,7 +27,6 @@ const SearchedLocationInput = () => {
                 dispatch(updateName(response.data.name))
                 dispatch(updateLatitude(response.data.latitude))
                 dispatch(updateLongitude(response.data.longitude))
-                getOneCallData(response.data)
             })
             .catch(error => {
                 console.log("ERROR, not in Database")
@@ -77,6 +72,10 @@ const SearchedLocationInput = () => {
                     dispatch(updateCity(city.name))
                     dispatch(updateTemperature(response.data.current.temp))
                     dispatch(updateTempFeelsLike(response.data.current.feels_like))
+                    dispatch(updateTempMin(response.data.daily[0].temp.min))
+                    dispatch(updateTempMax(response.data.daily[0].temp.max))
+                    dispatch(updateAll(response.data.daily))
+                    console.log(response.data.daily)
                 })
                 .catch(error => { console.log("ERROR ERROR ERROR !!!!!!!") })
         }
