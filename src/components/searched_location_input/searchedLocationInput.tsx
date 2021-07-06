@@ -9,8 +9,6 @@ import "./searched_location_input.css"
 
 type CityInfo = {
     name: string
-//    state: string
-//    country: string
     latitude: string
     longitude: string
 }
@@ -22,63 +20,75 @@ const SearchedLocationInput = () => {
 
 
     const getLocationFromDatabase = async () => {
-        await BackendWeather.getCityByName(inputValue)
-            .then(response => {
-                console.log(response)
-                dispatch(updateName(response.data.name))
-                dispatch(updateLatitude(response.data.latitude))
-                dispatch(updateLongitude(response.data.longitude))
-            })
-            .catch(error => {
-                console.log("ERROR, not in Database")
-            })
+        try {
+            const response = await BackendWeather.getCityByName(inputValue)
+            console.log(response)
+            return {
+                name: response.data.name,
+                latitude: response.data.latitude,
+                longitude: response.data.longitude
+            }
+        } catch (error) {
+            console.log("ERROR, not in Database")
+        }
     }
 
 
     const ifCityExistsUpdateLocationAndGetData = async () => {
-        await OpenWeather.getCurrentWeatherInCity(inputValue)
-            .then(response => {
-                console.log(response)
-                dispatch(updateName(response.data.name))
-                dispatch(updateLatitude(response.data.coord.lat))
-                dispatch(updateLongitude(response.data.coord.lon))
-                const city = {
-                    name: response.data.name,
-                    latitude: response.data.coord.lat,
-                    longitude: response.data.coord.lon
-                }
-                getOneCallData(city)
-            })
-            .catch(error => {
-                console.log("ERROR, City does not exist")
-            })
+        try {
+            const response = await OpenWeather.getCurrentWeatherInCity(inputValue)
+            console.log(response)
+            return {
+                name: response.data.name,
+                latitude: response.data.coord.lat,
+                longitude: response.data.coord.lon
+            }
+        } catch {
+            console.log("ERROR, City does not exist")
+        }
     }
     
 
     const addLocationToDatabase = async () => {
-        if (searchedLocation.name !== "") {
+        if (searchedLocation.name !== "" && searchedLocation.name !== undefined) {
             await BackendWeather.addCity(searchedLocation)
         }
     }
 
 
-    const getOneCallData = async (city: any) => {
-        if (inputValue !== "") {
-            await OpenWeather.getWeatherByLatitudeAndLongitude(
-                String(city.latitude).slice(0, -3),
-                String(city.longitude).slice(0, -3)
-            )
-                .then(response => {
-                    console.log(response.data)
-                    dispatch(updateCity(city.name))
-                    dispatch(updateTemperature(response.data.current.temp))
-                    dispatch(updateTempFeelsLike(response.data.current.feels_like))
-                    dispatch(updateTempMin(response.data.daily[0].temp.min))
-                    dispatch(updateTempMax(response.data.daily[0].temp.max))
-                    dispatch(updateAll(response.data.daily))
-                    console.log(response.data.daily)
-                })
-                .catch(error => { console.log("ERROR ERROR ERROR !!!!!!!") })
+    const getOneCallData = async (city: CityInfo|undefined) => {
+        try {
+            if (city !== undefined) {
+                const response = await OpenWeather.getWeatherByLatitudeAndLongitude(
+                    String(city.latitude).slice(0, -3),
+                    String(city.longitude).slice(0, -3)
+                )
+                console.log(response)
+                dispatch(updateCity(city.name))
+                dispatch(updateTemperature(response.data.current.temp))
+                dispatch(updateTempFeelsLike(response.data.current.feels_like))
+                dispatch(updateTempMin(response.data.daily[0].temp.min))
+                dispatch(updateTempMax(response.data.daily[0].temp.max))
+                dispatch(updateAll(response.data.daily))
+                dispatch(updateName(city.name))
+                dispatch(updateLatitude(city.latitude))
+                dispatch(updateLongitude(city.longitude))
+            }
+        } catch (error){
+            console.log("ERROR ERROR ERROR !!!!!!!")
+        }
+    }
+
+
+    const getWeatherForecast = async () => {
+        const city = await getLocationFromDatabase()
+        console.log("CUTY: ", city)
+        if (city === undefined || city.name === undefined){
+            console.log("Inside if")
+            getOneCallData(await ifCityExistsUpdateLocationAndGetData())
+        } else {
+            console.log("inside else")
+            await getOneCallData(city)
         }
     }
 
@@ -88,8 +98,7 @@ const SearchedLocationInput = () => {
             <div className="buttons-input">
                 <form className="form-searched-location">
                     <input onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="Search location..." />
-                    <button type="reset" onClick={() => ifCityExistsUpdateLocationAndGetData()}>Get from API</button>
-                    <button type="reset" onClick={() => getLocationFromDatabase()}>Get from Database</button>
+                    <button type="reset" onClick={() => getWeatherForecast()}>Get Weather Forecast</button>
                 </form>
                 <button type="submit" onClick={() => addLocationToDatabase()}>Add to database</button>
             </div>
@@ -102,8 +111,6 @@ const SearchedLocationInput = () => {
             {displayData()}
         </div>
     )
-
-    
 }
 
 export default SearchedLocationInput
