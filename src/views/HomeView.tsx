@@ -5,7 +5,6 @@ import SearchedLocationInput from "../components/searched_location_input/searche
 export const HomeView = () => {
     return (
         <div>
-            <h1>Today</h1>
             <div className="weather-cards">
                 <SearchedLocationInput />
                 <WeatherCard />
