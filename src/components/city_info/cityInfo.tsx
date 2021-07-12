@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 
-const CityInfo = () => {
-
+const DisplayCityInfo = () => {
     const cityInfo: any = useSelector<any>(state => state.searchedLocation)
 
     return (
@@ -13,4 +12,4 @@ const CityInfo = () => {
     )
 }
 
-export default CityInfo
+export default DisplayCityInfo

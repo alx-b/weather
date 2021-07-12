@@ -8,13 +8,14 @@ const getCities = () => {
     return BackendWeather.get("/city")
 }
 
+const addCity = (cityData: any) => {
+    return BackendWeather.post("/city", cityData)
+}
+
 const getCityByName = (name: string) => {
     return BackendWeather.get(`/city/${name}`)
 }
 
-const addCity = (cityData: any) => {
-    return BackendWeather.post("/city", cityData)
-}
 
 const getOpenWeatherAPIKey = () => {
     return BackendWeather.get("/api")
