@@ -23,9 +23,8 @@ const DayWeatherCard = () => {
     }
 
     const displayData = () => {
-
         return (
-            dayWeatherInfo.days.map((item: any) => (
+            dayWeatherInfo.days.slice(1).map((item: any) => (
                 <div key={item?.dt+item?.temp?.day} className="day">
                     <span className="date">{convertToDate(item?.dt)}</span>
                     <div className="icon-description">
