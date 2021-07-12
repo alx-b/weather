@@ -2,16 +2,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
 import OpenWeather from "../../api/OpenWeather"
 import BackendWeather from "../../api/Backend"
-import { updateName, updateLatitude, updateLongitude } from "../../redux/searchedLocation"
-import { updateCity, updateTemperature, updateTempFeelsLike, updateTempMin, updateTempMax } from "../../redux/weatherInfo"
+import { updateAllValue } from "../../redux/searchedLocation"
+import { updateCurrentWeather } from "../../redux/currentWeather"
 import { updateAll } from "../../redux/dayWeather"
 import "./searched_location_input.css"
-
-type CityInfo = {
-    name: string
-    latitude: string
-    longitude: string
-}
+import { CityInfo } from "../../types"
 
 const SearchedLocationInput = () => {
     const [inputValue, setInputValue] = useState<string>("")
@@ -50,8 +45,10 @@ const SearchedLocationInput = () => {
     
 
     const addLocationToDatabase = async () => {
-        if (searchedLocation.name !== "" && searchedLocation.name !== undefined) {
+        try {
             await BackendWeather.addCity(searchedLocation)
+        } catch (error) {
+            console.log("Error: ", error.message)
         }
     }
 
@@ -64,15 +61,9 @@ const SearchedLocationInput = () => {
                     String(city.longitude).slice(0, -3)
                 )
                 console.log(response)
-                dispatch(updateCity(city.name))
-                dispatch(updateTemperature(response.data.current.temp))
-                dispatch(updateTempFeelsLike(response.data.current.feels_like))
-                dispatch(updateTempMin(response.data.daily[0].temp.min))
-                dispatch(updateTempMax(response.data.daily[0].temp.max))
+                dispatch(updateCurrentWeather(response.data.current))
                 dispatch(updateAll(response.data.daily))
-                dispatch(updateName(city.name))
-                dispatch(updateLatitude(city.latitude))
-                dispatch(updateLongitude(city.longitude))
+                dispatch(updateAllValue(city))
             }
         } catch (error){
             console.log("ERROR ERROR ERROR !!!!!!!")
@@ -82,12 +73,9 @@ const SearchedLocationInput = () => {
 
     const getWeatherForecast = async () => {
         const city = await getLocationFromDatabase()
-        console.log("CUTY: ", city)
         if (city === undefined || city.name === undefined){
-            console.log("Inside if")
             getOneCallData(await ifCityExistsUpdateLocationAndGetData())
         } else {
-            console.log("inside else")
             await getOneCallData(city)
         }
     }
@@ -99,8 +87,8 @@ const SearchedLocationInput = () => {
                 <form className="form-searched-location">
                     <input onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="Search location..." />
                     <button type="reset" onClick={() => getWeatherForecast()}>Get Weather Forecast</button>
+                    <button type="button" onClick={() => addLocationToDatabase()}>Save Location</button>
                 </form>
-                <button type="submit" onClick={() => addLocationToDatabase()}>Add to database</button>
             </div>
         )
     }
