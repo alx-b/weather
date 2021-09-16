@@ -86,7 +86,7 @@ const SearchedLocationInput = () => {
             <div className="buttons-input">
                 <form className="form-searched-location">
                     <input onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="Search location..." />
-                    <button type="reset" onClick={() => getWeatherForecast()}>Get Weather Forecast</button>
+                    <button type="reset" onClick={() => getWeatherForecast()}><span className="fa fa-search" aria-hidden="true"></span></button>
                     <button type="button" onClick={() => addLocationToDatabase()}>Save Location</button>
                 </form>
             </div>

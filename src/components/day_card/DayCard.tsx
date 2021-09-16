@@ -27,15 +27,18 @@ const DayWeatherCard = () => {
             dayWeatherInfo.days.slice(1).map((item: any) => (
                 <div key={item?.dt+item?.temp?.day} className="day">
                     <span className="date">{convertToDate(item?.dt)}</span>
-                    <div className="icon-description">
-                        <img className="weather-icon" src={getIcon(item?.weather[0]?.icon)} alt="weather icon" />
-                        <span>{item?.weather[0]?.description}</span>
-                    </div>
-                    <span className="temp">{Math.round(item?.temp?.day)}°C</span>
-                    <div className="stats">
-                    <div><span className="fa fa-long-arrow-up" aria-hidden="true"></span> <span className="fa fa-thermometer-three-quarters" aria-hidden="true"></span> {Math.round(item?.temp?.max)}°C</div>
-                    <div><span className="fa fa-long-arrow-down" aria-hidden="true"></span> <span className="fa fa-thermometer-quarter" aria-hidden="true"></span> {Math.round(item?.temp?.min)}°C</div>
-                    <div><span className="fa fa-umbrella" aria-hidden="true"></span> {parseInt(`${item?.pop * 100}`)}%</div>
+                    <div className="day-columns">
+                        <div className="col-1">
+                            <span className="temp">{Math.round(item?.temp?.day)}°C</span>
+                        </div>
+                        <div className="col-2">
+                        <div>
+                            <div className="icon-description">
+                                <img className="weather-icon" src={getIcon(item?.weather[0]?.icon)} alt="weather icon" />
+                                <span>{item?.weather[0]?.description}</span>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             ))
@@ -49,5 +52,13 @@ const DayWeatherCard = () => {
     )
 
 }
+
+/*
+<div className="stats">
+<div><span className="fa fa-long-arrow-up" aria-hidden="true"></span> <span className="fa fa-thermometer-three-quarters" aria-hidden="true"></span> {Math.round(item?.temp?.max)}°C</div>
+<div><span className="fa fa-long-arrow-down" aria-hidden="true"></span> <span className="fa fa-thermometer-quarter" aria-hidden="true"></span> {Math.round(item?.temp?.min)}°C</div>
+<div><span className="fa fa-umbrella" aria-hidden="true"></span> {parseInt(`${item?.pop * 100}`)}%</div>
+</div>
+ */
 
 export default DayWeatherCard

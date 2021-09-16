@@ -2,23 +2,44 @@
     display: grid;
     grid-gap: 10px;
     /*border: 1px solid black;*/
-    margin-left: 30vw;
-    margin-right: 30vw;
+    margin-left: 35vw;
+    margin-right: 35vw;
 }
 
 .day {
     display: grid;
     background-color: rgba(255,255,255,0.1);
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
-    align-content: center;
-    align-self: center;
     text-align: center;
     text-justify: center;
+    border-radius: 10px;
 }
 
-.date, .temp  {
+.day-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 20px;
+}
+
+.col-1, .col-2 {
+    display: grid;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.temp  {
     align-self: center;
+}
+
+.date {
+    font-size: 1em;
+    background-color: rgba(20,20,20,0.5);
+    border-radius: 10px 10px 0 0;
+    height: 30px;
+    line-height: 30px;
+}
+
+.temp {
+    font-size: 4em;
 }
 
 div {

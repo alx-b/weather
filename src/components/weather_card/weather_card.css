@@ -1,12 +1,41 @@
 .weather-card {
     display: grid;
     background-color: rgba(255,255,255,0.1);
-    margin-left: 30vw;
-    margin-right: 30vw;
+    margin-left: 35vw;
+    margin-right: 35vw;
     text-align: center;
+    border-radius: 10px;
 }
 
+.weather-card-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 30px;
+}
+
+.col-1, .col-2 {
+    display: grid;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+/*
 .expected-temperature {
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+*/
+.location {
+    background-color: rgba(20,20,20,0.5);
+    border-radius: 10px 10px 0 0;
+    height: 30px;
+    line-height: 30px;
+}
+
+.degree {
+    font-size: 4em;
+}
+
+.feels-like {
+    font-size: 1em;
 }

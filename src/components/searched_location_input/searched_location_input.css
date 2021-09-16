@@ -5,6 +5,7 @@ button {
     color: #ddd;
     padding: 10px;
     border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     /*border-bottom: 4px solid #09507d;*/
 }
 
@@ -20,7 +21,7 @@ button:active {
 
 .form-searched-location {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 4fr 1fr 2fr;
     gap: 10px;
 }
 
@@ -30,11 +31,12 @@ button:active {
     border-bottom: 4px solid #1a618e;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 8px;
+    border-radius: 10px;
 }
 
 .buttons-input {
     display: grid;
-    margin-left: 30vw;
-    margin-right: 30vw;
+    margin-left: 35vw;
+    margin-right: 35vw;
     gap: 10px;
 }
